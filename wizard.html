@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Wizard Teaching Callbacks</title>
+</head>
+<script>
+  // declare the wizard
+  var wizard = {
+      // wizard attributes:
+    health: 500,
+    mana: 500,
+      // wizard spells:
+    spells: {
+        open_sesame: {
+            name: "Open Sesame",
+            mana_cost: 10
+        },
+        chain_lightning: {
+            name: "Chain Lightning",            
+            mana_cost: 20
+        },
+        fireball: {
+            name: "Fireball",
+            mana_cost: 30
+        }
+    },
+      // wizard abilities
+      castSpell: function(spell, callback) {
+        // declare caster to be available for the callback function below
+        var caster = this;
+        this.mana -= spell.mana_cost;
+        callback(spell);
+      }
+  };
+
+  // decrease the wizard's mana with a success rate of 80% and execute the callback function and pass a caster parameter that gets the wizard who casted a spell
+  function pokemans() {
+    var chance = Math.floor((Math.random()*100)+1);
+      if (chance < 80) {
+        var num = Math.floor((Math.random()*3)+1);
+        if (num == 1) {
+            wizard.castSpell( wizard.spells.open_sesame, function(spell) {
+              alert("The wizard casted a spell! The spell is " + spell.name);
+              alert("The wizard spent " + spell.mana_cost + " mana to cast it");
+              alert("The wizard has " + wizard.mana + " left");
+          })
+        }
+        else if (num == 2) {
+          wizard.castSpell( wizard.spells.chain_lightning, function(spell) {
+            alert("The wizard casted a spell! The spell is " + spell.name);
+            alert("The wizard spent " + spell.mana_cost + " mana to cast it");
+            alert("The wizard has " + wizard.mana + " left")
+          })   
+        }
+        else if (num == 3){
+           wizard.castSpell( wizard.spells.fireball, function(spell) {
+            alert("The wizard casted a spell! The spell is " + spell.name);
+            alert("The wizard spent " + spell.mana_cost + " mana to cast it");
+            alert("The wizard has " + wizard.mana + " left");
+        });
+        }  
+      }
+      else {
+        alert("Failed to cast a spell.. Sorry small son!");
+      } 
+  }  
+</script>
+<body>
+<h1> Use the function "pokemans()"  in console log to try and cast a spell! </h1>
+<h2> Rules </h2>
+<ul>
+  <li>You start with 500 mana.</li>
+  <li>There are 3 possible spells casted randomly</li>
+  <li>Spells are casted with 80% success rate</li>
+</ul>
+</body>
+</html>
